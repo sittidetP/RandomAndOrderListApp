@@ -8,7 +8,7 @@ class RandomPage extends StatefulWidget {
 }
 
 class _RandomPageState extends State<RandomPage> {
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
