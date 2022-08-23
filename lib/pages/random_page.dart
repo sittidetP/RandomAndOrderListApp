@@ -9,6 +9,8 @@ class RandomPage extends StatefulWidget {
 
 class _RandomPageState extends State<RandomPage> {
   final TextEditingController _controller = TextEditingController();
+  final ScrollController _scrollControllerInput = ScrollController();
+  final ScrollController _scrollControllerResult = ScrollController();
 
   List _results = [];
 
@@ -28,7 +30,7 @@ class _RandomPageState extends State<RandomPage> {
       }).toList();
 
       Set newNamesSet = {};
-      for(int i = 0; i < _results.length; ++i){
+      for (int i = 0; i < _results.length; ++i) {
         newNamesSet.add(_results[i]);
       }
       // print(names);
@@ -38,44 +40,57 @@ class _RandomPageState extends State<RandomPage> {
       // print(_results);
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-          child: Row(
-            children: [
-              Column(
-                children: [
-                  Container(
-                    margin: const EdgeInsets.all(16.0),
-                    decoration: const BoxDecoration(
-                      color: Colors.orangeAccent,
-                      borderRadius: BorderRadius.all(Radius.circular(20.0)),
+        child: Row(
+          children: [
+            Column(
+              children: [
+                Container(
+                  margin: const EdgeInsets.all(16.0),
+                  padding: EdgeInsets.all(20.0),
+                  decoration: const BoxDecoration(
+                    color: Colors.orangeAccent,
+                    borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                  ),
+                  width: MediaQuery.of(context).size.width * 0.6,
+                  constraints: const BoxConstraints(maxHeight: 500),
+                  height: 500,
+                  child: SingleChildScrollView(
+                    controller: _scrollControllerResult,
+                    child: Column(
+                      children: [
+                        for (int i = 0; i < _results.length; ++i)
+                          Text(
+                            "${i + 1}. ${_results[i]}",
+                            style: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 24.0,
+                            ),
+                          ),
+                      ],
                     ),
-                    width: MediaQuery.of(context).size.width * 0.6,
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          for (int i = 0; i < _results.length; ++i)
-                            Text("${i + 1}. ${_results[i]}"),
-                        ],
-                      ),
-                    ),
-                  )
-                ],
-              ),
-              _buildInputPanel(),
-            ],
-          ),
+                  ),
+                )
+              ],
+            ),
+            _buildInputPanel(),
+          ],
+        ),
       ),
     );
   }
 
-  Widget _buildInputPanel() { //ที่ใส่เลข
+  Widget _buildInputPanel() {
+    //ที่ใส่เลข
     return Column(
       children: [
         ElevatedButton(
-          onPressed: () { //เมื่อกดปุ่ม
+          onPressed: () {
+            //เมื่อกดปุ่ม
             _checkInputAndProcess();
           },
           child: const Padding(
@@ -91,7 +106,6 @@ class _RandomPageState extends State<RandomPage> {
           decoration: const BoxDecoration(
             color: Colors.indigo,
             borderRadius: BorderRadius.all(Radius.circular(20.0)),
-
           ),
           width: MediaQuery.of(context).size.width * 0.35,
           child: Padding(
@@ -99,7 +113,9 @@ class _RandomPageState extends State<RandomPage> {
             child: Container(
               constraints: const BoxConstraints(maxHeight: 500),
               child: SingleChildScrollView(
-                child: TextField( //ช่องใส่ชื่อ
+                controller: _scrollControllerInput,
+                child: TextField(
+                  //ช่องใส่ชื่อ
                   controller: _controller,
                   keyboardType: TextInputType.multiline,
                   maxLines: null,
@@ -112,8 +128,8 @@ class _RandomPageState extends State<RandomPage> {
                   decoration: InputDecoration(
                       enabledBorder: UnderlineInputBorder(
                           borderSide: BorderSide(
-                            color: Colors.white.withOpacity(0.5),
-                          )),
+                        color: Colors.white.withOpacity(0.5),
+                      )),
                       hintText: 'Enter the Names here',
                       hintStyle: TextStyle(
                         color: Colors.white.withOpacity(0.5),
