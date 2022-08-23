@@ -10,7 +10,7 @@ class RandomPage extends StatefulWidget {
 class _RandomPageState extends State<RandomPage> {
   final TextEditingController _controller = TextEditingController();
 
-  final List _results = [];
+  List _results = [];
 
   void _checkInputAndProcess() {
     //ตรวจสอบข้อมูลเข้า แล้วนำไปประมวลผล
@@ -20,13 +20,15 @@ class _RandomPageState extends State<RandomPage> {
       }
 
       List names = _controller.value.text.split("\n");
-      List newNames = names.where((element) {
+      _results = names.where((element) {
         String name = element as String;
         // print("${name} : ${name.length}, ${name.isNotEmpty}");
         return name.trim().isNotEmpty;
       }).toList();
       // print(names);
-      print(newNames);
+      _results.shuffle();
+      print(_results);
+
     });
   }
   @override
@@ -39,8 +41,11 @@ class _RandomPageState extends State<RandomPage> {
                 children: [
                   Container(
                     width: MediaQuery.of(context).size.width * 0.6,
-                    child: Text(
-                      "sdfasdfsad"
+                    child: Column(
+                      children: [
+                        for (int i = 0; i < _results.length; ++i)
+                          Text("${i + 1}. ${_results[i]}"),
+                      ],
                     ),
                   )
                 ],
