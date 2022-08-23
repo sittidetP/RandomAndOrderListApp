@@ -20,15 +20,22 @@ class _RandomPageState extends State<RandomPage> {
       }
 
       List names = _controller.value.text.split("\n");
+
       _results = names.where((element) {
         String name = element as String;
         // print("${name} : ${name.length}, ${name.isNotEmpty}");
         return name.trim().isNotEmpty;
       }).toList();
-      // print(names);
-      _results.shuffle();
-      print(_results);
 
+      Set newNamesSet = {};
+      for(int i = 0; i < _results.length; ++i){
+        newNamesSet.add(_results[i]);
+      }
+      // print(names);
+      // print(newNamesSet);
+      _results = newNamesSet.toList();
+      _results.shuffle();
+      // print(_results);
     });
   }
   @override
@@ -40,12 +47,19 @@ class _RandomPageState extends State<RandomPage> {
               Column(
                 children: [
                   Container(
+                    margin: const EdgeInsets.all(16.0),
+                    decoration: const BoxDecoration(
+                      color: Colors.orangeAccent,
+                      borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                    ),
                     width: MediaQuery.of(context).size.width * 0.6,
-                    child: Column(
-                      children: [
-                        for (int i = 0; i < _results.length; ++i)
-                          Text("${i + 1}. ${_results[i]}"),
-                      ],
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          for (int i = 0; i < _results.length; ++i)
+                            Text("${i + 1}. ${_results[i]}"),
+                        ],
+                      ),
                     ),
                   )
                 ],
@@ -86,11 +100,6 @@ class _RandomPageState extends State<RandomPage> {
               constraints: const BoxConstraints(maxHeight: 500),
               child: SingleChildScrollView(
                 child: TextField( //ช่องใส่ชื่อ
-
-                  onSubmitted: (value) {
-                    //เมื่อกด enter
-                    // _checkInputAndProcess();
-                  },
                   controller: _controller,
                   keyboardType: TextInputType.multiline,
                   maxLines: null,
@@ -105,7 +114,7 @@ class _RandomPageState extends State<RandomPage> {
                           borderSide: BorderSide(
                             color: Colors.white.withOpacity(0.5),
                           )),
-                      hintText: 'Enter the positive integer here',
+                      hintText: 'Enter the Names here',
                       hintStyle: TextStyle(
                         color: Colors.white.withOpacity(0.5),
                         fontSize: 20.0,
