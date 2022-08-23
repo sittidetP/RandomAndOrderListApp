@@ -8,7 +8,27 @@ class RandomPage extends StatefulWidget {
 }
 
 class _RandomPageState extends State<RandomPage> {
+  final TextEditingController _controller = TextEditingController();
 
+  final List _results = [];
+
+  void _checkInputAndProcess() {
+    //ตรวจสอบข้อมูลเข้า แล้วนำไปประมวลผล
+    setState(() {
+      if (_results.isNotEmpty) {
+        _results.clear();
+      }
+
+      List names = _controller.value.text.split("\n");
+      List newNames = names.where((element) {
+        String name = element as String;
+        // print("${name} : ${name.length}, ${name.isNotEmpty}");
+        return name.trim().isNotEmpty;
+      }).toList();
+      // print(names);
+      print(newNames);
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,7 +57,7 @@ class _RandomPageState extends State<RandomPage> {
       children: [
         ElevatedButton(
           onPressed: () { //เมื่อกดปุ่ม
-            // _checkInputAndProcess();
+            _checkInputAndProcess();
           },
           child: const Padding(
             padding: EdgeInsets.all(8.0),
@@ -66,7 +86,7 @@ class _RandomPageState extends State<RandomPage> {
                     //เมื่อกด enter
                     // _checkInputAndProcess();
                   },
-                  // controller: _controller,
+                  controller: _controller,
                   keyboardType: TextInputType.multiline,
                   maxLines: null,
                   style: const TextStyle(
