@@ -47,38 +47,7 @@ class _RandomPageState extends State<RandomPage> {
       body: SafeArea(
         child: Row(
           children: [
-            Flexible(
-              flex: 2,
-              child: Column(
-                children: [
-                  Container(
-                    margin: const EdgeInsets.all(16.0),
-                    padding: EdgeInsets.all(20.0),
-                    decoration: const BoxDecoration(
-                      color: Colors.orangeAccent,
-                      borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                    ),
-                    width: MediaQuery.of(context).size.width * 0.6,
-                    constraints: const BoxConstraints(maxHeight: 500),
-                    child: SingleChildScrollView(
-                      controller: _scrollControllerResult,
-                      child: Column(
-                        children: [
-                          for (int i = 0; i < _results.length; ++i)
-                            Text(
-                              "${i + 1}. ${_results[i]}",
-                              style: const TextStyle(
-                                color: Colors.black,
-                                fontSize: 24.0,
-                              ),
-                            ),
-                        ],
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ),
+            _buildResultBoard(scrollControllerResult: _scrollControllerResult, results: _results),
             _buildInputPanel(),
           ],
         ),
@@ -144,6 +113,53 @@ class _RandomPageState extends State<RandomPage> {
               ),
             ),
           ),
+        ],
+      ),
+    );
+  }
+}
+
+class _buildResultBoard extends StatelessWidget {
+  const _buildResultBoard({
+    Key? key,
+    required ScrollController scrollControllerResult,
+    required List results,
+  }) : _scrollControllerResult = scrollControllerResult, _results = results, super(key: key);
+
+  final ScrollController _scrollControllerResult;
+  final List _results;
+
+  @override
+  Widget build(BuildContext context) {
+    return Flexible(
+      flex: 2,
+      child: Column(
+        children: [
+          Container(
+            margin: const EdgeInsets.all(16.0),
+            padding: EdgeInsets.all(20.0),
+            decoration: const BoxDecoration(
+              color: Colors.orangeAccent,
+              borderRadius: BorderRadius.all(Radius.circular(20.0)),
+            ),
+            width: MediaQuery.of(context).size.width * 0.6,
+            constraints: const BoxConstraints(maxHeight: 500),
+            child: SingleChildScrollView(
+              controller: _scrollControllerResult,
+              child: Column(
+                children: [
+                  for (int i = 0; i < _results.length; ++i)
+                    Text(
+                      "${i + 1}. ${_results[i]}",
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 24.0,
+                      ),
+                    ),
+                ],
+              ),
+            ),
+          )
         ],
       ),
     );
