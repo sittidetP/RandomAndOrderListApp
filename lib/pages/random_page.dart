@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-
 class RandomPage extends StatefulWidget {
   const RandomPage({Key? key}) : super(key: key);
 
@@ -49,7 +48,9 @@ class _RandomPageState extends State<RandomPage> {
       body: SafeArea(
         child: Row(
           children: [
-            _buildResultBoard(scrollControllerResult: _scrollControllerResult, results: _results),
+            _buildResultBoard(
+                scrollControllerResult: _scrollControllerResult,
+                results: _results),
             _buildInputPanel(),
           ],
         ),
@@ -63,16 +64,22 @@ class _RandomPageState extends State<RandomPage> {
       flex: 1,
       child: Column(
         children: [
-          ElevatedButton(
-            onPressed: () {
-              //เมื่อกดปุ่ม
-              _checkInputAndProcess();
-            },
-            child: const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Text(
-                'Random!',
-                style: TextStyle(fontSize: 22.0, color: Colors.yellow),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: ElevatedButton(
+              onPressed: () {
+                //เมื่อกดปุ่ม
+                _checkInputAndProcess();
+              },
+              style: ElevatedButton.styleFrom(
+                  primary: Colors.red,
+                  textStyle: GoogleFonts.kanit(fontSize: 26.0)),
+              child: const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text(
+                  'Random!',
+                  style: TextStyle(color: Colors.greenAccent),
+                ),
               ),
             ),
           ),
@@ -94,10 +101,8 @@ class _RandomPageState extends State<RandomPage> {
                     controller: _controller,
                     keyboardType: TextInputType.multiline,
                     maxLines: null,
-                    style: GoogleFonts.kanit(
-                        fontSize: 24.0,
-                        color: Colors.white
-                    ),
+                    style:
+                        GoogleFonts.kanit(fontSize: 24.0, color: Colors.white),
                     cursorColor: Colors.white,
                     textAlign: TextAlign.center,
                     decoration: InputDecoration(
@@ -126,7 +131,9 @@ class _buildResultBoard extends StatelessWidget {
     Key? key,
     required ScrollController scrollControllerResult,
     required List results,
-  }) : _scrollControllerResult = scrollControllerResult, _results = results, super(key: key);
+  })  : _scrollControllerResult = scrollControllerResult,
+        _results = results,
+        super(key: key);
 
   final ScrollController _scrollControllerResult;
   final List _results;
@@ -137,6 +144,18 @@ class _buildResultBoard extends StatelessWidget {
       flex: 2,
       child: Column(
         children: [
+          Container(
+            margin: const EdgeInsets.all(16.0),
+            padding: EdgeInsets.all(12.0),
+            decoration: const BoxDecoration(
+              color: Colors.orangeAccent,
+              borderRadius: BorderRadius.all(Radius.circular(20.0)),
+            ),
+            width: MediaQuery.of(context).size.width * 0.6,
+            child: Text("Result",
+                textAlign: TextAlign.center,
+                style: GoogleFonts.kanit(fontSize: 34.0, color: Colors.black, fontWeight: FontWeight.bold)),
+          ),
           Container(
             margin: const EdgeInsets.all(16.0),
             padding: EdgeInsets.all(20.0),
@@ -154,9 +173,7 @@ class _buildResultBoard extends StatelessWidget {
                     Text(
                       "${i + 1}. ${_results[i]}",
                       style: GoogleFonts.kanit(
-                        fontSize: 24.0,
-                        color: Colors.black
-                      ),
+                          fontSize: 24.0, color: Colors.black),
                     ),
                 ],
               ),
