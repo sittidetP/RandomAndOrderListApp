@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 
 class RandomPage extends StatefulWidget {
   const RandomPage({Key? key}) : super(key: key);
@@ -92,9 +94,9 @@ class _RandomPageState extends State<RandomPage> {
                     controller: _controller,
                     keyboardType: TextInputType.multiline,
                     maxLines: null,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 24.0,
+                    style: GoogleFonts.kanit(
+                        fontSize: 24.0,
+                        color: Colors.white
                     ),
                     cursorColor: Colors.white,
                     textAlign: TextAlign.center,
@@ -151,9 +153,9 @@ class _buildResultBoard extends StatelessWidget {
                   for (int i = 0; i < _results.length; ++i)
                     Text(
                       "${i + 1}. ${_results[i]}",
-                      style: const TextStyle(
-                        color: Colors.black,
+                      style: GoogleFonts.kanit(
                         fontSize: 24.0,
+                        color: Colors.black
                       ),
                     ),
                 ],
