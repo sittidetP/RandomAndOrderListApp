@@ -48,10 +48,11 @@ class _RandomPageState extends State<RandomPage> {
       body: SafeArea(
         child: Row(
           children: [
+            _buildInputPanel(),
             _buildResultBoard(
                 scrollControllerResult: _scrollControllerResult,
                 results: _results),
-            _buildInputPanel(),
+
           ],
         ),
       ),
@@ -72,13 +73,13 @@ class _RandomPageState extends State<RandomPage> {
                 _checkInputAndProcess();
               },
               style: ElevatedButton.styleFrom(
-                  primary: Colors.red,
+                  primary: Colors.blue.shade400,
                   textStyle: GoogleFonts.kanit(fontSize: 26.0)),
               child: const Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Text(
                   'Random!',
-                  style: TextStyle(color: Colors.greenAccent),
+                  style: TextStyle(color: Colors.white),
                 ),
               ),
             ),
@@ -86,7 +87,7 @@ class _RandomPageState extends State<RandomPage> {
           Container(
             margin: const EdgeInsets.all(16.0),
             decoration: const BoxDecoration(
-              color: Colors.indigo,
+              color: Colors.blueAccent,
               borderRadius: BorderRadius.all(Radius.circular(20.0)),
             ),
             width: MediaQuery.of(context).size.width * 0.35,
