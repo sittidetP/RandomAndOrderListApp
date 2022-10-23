@@ -174,7 +174,9 @@ class _buildResultBoard extends StatelessWidget {
                     Text(
                       "${i + 1}. ${_results[i]}",
                       style: GoogleFonts.kanit(
-                          fontSize: 24.0, color: Colors.black),
+                          fontSize: 28.0,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.black),
                     ),
                 ],
               ),
